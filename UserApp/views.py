@@ -3,10 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from .models import UniqueLink, UserProfile
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponse
+from django.shortcuts import render
 
 def home_view(request):
-    return HttpResponse("Hello, welcome to the home page!")
+    return render(request, 'home.html')
 
 
 def register(request, token=None):
