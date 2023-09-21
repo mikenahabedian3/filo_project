@@ -1,5 +1,4 @@
 <!-- filo_project/UserApp/templates/base.html -->
-
 <!DOCTYPE html>
 <html>
 {% load static %}
@@ -7,15 +6,13 @@
 <head>
   <title>{% block title %}{% endblock %}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-  
-  <!-- Added Roboto font link -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     body, html {
-      background-color: white; /* Updated the background color to white */
+      background-color: white;
       color: purple;
-      font-family: 'Roboto', sans-serif; /* Applied Roboto font globally */
+      font-family: 'Roboto', sans-serif;
     }
 
     header {
@@ -24,7 +21,7 @@
       align-items: center;
       border-bottom: 1px solid purple;
       padding: 10px;
-      background-color: white; /* Updated the background color to greenyellow */
+      background-color: white;
     }
 
     header nav ul {
@@ -37,7 +34,7 @@
       margin: 0 10px;
     }
 
-    header nav ul li a {
+    header nav ul li a, .btn-logout {
       color: white;
       padding: 10px 20px;
       border-radius: 5px;
@@ -48,8 +45,16 @@
       background-color: lime;
     }
 
-    header nav ul li a.purple {
+    header nav ul li a.purple, .btn-logout {
       background-color: purple;
+    }
+
+    .btn-logout {
+      background-color: lightblue; /* Additional styling for logout button */
+    }
+
+    .btn-logout:hover {
+      background-color: deepskyblue; /* Hover effect for logout button */
     }
 
     main {
@@ -75,18 +80,18 @@
     .story-label {
       font-size: 1.2em;
       margin-bottom: 10px;
-      color: lime;  /* Or any other color you prefer */
+      color: lime;
     }
 
     .story-textarea {
-      width: 60%;  /* Adjust as necessary */
-      height: 200px;  /* Adjust as necessary */
+      width: 60%;
+      height: 200px;
       padding: 10px;
-      border-radius: 10px;  /* Optional: for rounded corners */
-      border: 2px solid purple;  /* Adjust as necessary */
+      border-radius: 10px;
+      border: 2px solid purple;
       font-size: 1em;
-      color: purple;  /* Adjust as necessary */
-      background-color: white;  /* Updated the background color to white */
+      color: purple;
+      background-color: white;
     }
   </style>
 </head>
@@ -99,13 +104,12 @@
     <nav>
       <ul>
         {% if request.user.is_authenticated %}
-          <li style="display: inline; margin: 0 10px;">{{ request.user.username }}</li>
-          <li style="display: inline; margin: 0 10px;">{{ request.user.email }}</li>
-          <li style="display: inline; margin: 0 10px;"><a href="{% url 'logout' %}" style="color: white;">Log Out</a></li>
+          <li>{{ request.user.username }}</li>
+          <li>{{ request.user.email }}</li>
+          <li><a href="{% url 'logout' %}?next={% url 'home' %}" class="btn-logout">Log Out</a></li>
         {% else %}
           <li><a href="{% url 'login' %}" class="purple">Log In</a></li>
-          {# <li><a href="{% url 'signup' %}" class="green">Sign Up</a></li> #}
-          {% endif %}
+        {% endif %}
       </ul>
     </nav>
   </header>
@@ -114,7 +118,7 @@
     {% block content %}{% endblock %}
   </main>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 </body>
 </html>
