@@ -1,9 +1,21 @@
 # filo_project/talentapp/admin.py
 
 from django.contrib import admin
-from .models import ParentOrganization, Company, Job, Application
+from .models import ParentOrganization, Company, JobRequisition
 
-admin.site.register(ParentOrganization)
-admin.site.register(Company)
-admin.site.register(Job)
-admin.site.register(Application)
+class CompanyInline(admin.StackedInline):  # Define Inline for Company model
+    model = Company
+    extra = 1  # Number of empty forms to display
+
+@admin.register(ParentOrganization)
+class ParentOrganizationAdmin(admin.ModelAdmin):
+    list_display = ['name', 'user']
+    inlines = [CompanyInline]  # Add CompanyInline to the ParentOrganizationAdmin
+
+@admin.register(Company)
+class CompanyAdmin(admin.ModelAdmin):
+    list_display = ['name', 'parent_organization']
+
+@admin.register(JobRequisition)
+class JobRequisitionAdmin(admin.ModelAdmin):
+    list_display = ['title', 'company']
